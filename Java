@@ -1,0 +1,41 @@
+const rollButton = document.getElementById("roll");
+const message = document.getElementById("message");
+const player = document.getElementById("player");
+const cells = document.querySelectorAll(".cell");
+
+let position = 0; // プレイヤーの現在位置
+
+// 初期位置にプレイヤーを配置
+movePlayer(position);
+
+rollButton.addEventListener("click", () => {
+    const dice = Math.floor(Math.random() * 6) + 1; // 1~6のサイコロ
+    message.textContent = サイコロの目は ${dice}！;
+
+    let nextPosition = position + dice;
+
+    if (nextPosition >= cells.length) {
+        nextPosition = cells.length - 1; // ゴールを超えないように
+    }
+
+    position = nextPosition;
+    movePlayer(position);
+
+    const eventText = cells[position].textContent;
+    message.textContent += \n${eventText} に止まりました！;
+
+    if (position === cells.length - 1) {
+        message.textContent += "\n🎉 ゴールしました！おめでとう！🎉";
+        rollButton.disabled = true;
+    }
+});
+
+function movePlayer(pos) {
+    const cell = cells[pos];
+    const rect = cell.getBoundingClientRect();
+    const boardRect = document.querySelector(".board").getBoundingClientRect();
+
+    // プレイヤーの位置をcellの中央に設定
+    player.style.top = ${rect.top - boardRect.top + rect.height / 4}px;
+    player.style.left = ${rect.left - boardRect.left + rect.width / 4}px;
+}
