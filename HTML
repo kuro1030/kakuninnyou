@@ -1,40 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>人生ゲーム風すごろく🎲</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>ルーレットゲーム</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>人生ゲーム風すごろく🎉</h1>
+  <h1>🎡 ルーレットゲーム 🎡</h1>
 
-    <div class="board">
-        <div class="row">
-            <div class="cell start">スタート</div>
-            <div class="cell">給料日💰</div>
-            <div class="cell">買い物🛒</div>
-            <div class="cell">旅行✈️</div>
-            <div class="cell">結婚💍</div>
-            <div class="cell">昇進📈</div>
-        </div>
-        <div class="row">
-            <div class="cell">事故⚠️</div>
-            <div class="cell">宝くじ🎟️</div>
-            <div class="cell">病気🤒</div>
-            <div class="cell">出産👶</div>
-            <div class="cell">趣味🎨</div>
-            <div class="cell end">ゴール🏁</div>
-        </div>
-    </div>
+  <div class="roulette" id="roulette"></div>
+  <button id="spin">回す！</button>
+  <p id="result">結果がここに出るよ！</p>
 
-    <div class="game-controls">
-        <button id="roll">サイコロを振る</button>
-        <p id="message">サイコロの目がここに表示されます🎲</p>
-    </div>
-
-    <div class="player" id="player">🎯</div>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
