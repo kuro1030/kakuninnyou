@@ -1,41 +1,29 @@
-const rollButton = document.getElementById("roll");
-const message = document.getElementById("message");
-const player = document.getElementById("player");
-const cells = document.querySelectorAll(".cell");
+const roulette = document.getElementById("roulette");
+const spinButton = document.getElementById("spin");
+const result = document.getElementById("result");
 
-let position = 0; // プレイヤーの現在位置
+const outcomes = [
+  "💀 負け！",
+  "🎉 勝ち！",
+  "🔁 もう一回！",
+  "✨ パルプンテ！何が起こるかわからない！"
+];
 
-// 初期位置にプレイヤーを配置
-movePlayer(position);
+spinButton.addEventListener("click", () => {
+  // ランダムに角度を決める（最低3回転してから止まる）
+  const randomDeg = 720 + Math.floor(Math.random() * 360); 
+  roulette.style.transform = `rotate(${randomDeg}deg)`;
 
-rollButton.addEventListener("click", () => {
-    const dice = Math.floor(Math.random() * 6) + 1; // 1~6のサイコロ
-    message.textContent = サイコロの目は ${dice}！;
+  // 停止後に結果を表示
+  setTimeout(() => {
+    const stopDeg = randomDeg % 360;
 
-    let nextPosition = position + dice;
+    let index;
+    if (stopDeg < 90) index = 0;      // 負け
+    else if (stopDeg < 180) index = 1; // 勝ち
+    else if (stopDeg < 270) index = 2; // もう一回
+    else index = 3;                   // パルプンテ
 
-    if (nextPosition >= cells.length) {
-        nextPosition = cells.length - 1; // ゴールを超えないように
-    }
-
-    position = nextPosition;
-    movePlayer(position);
-
-    const eventText = cells[position].textContent;
-    message.textContent += \n${eventText} に止まりました！;
-
-    if (position === cells.length - 1) {
-        message.textContent += "\n🎉 ゴールしました！おめでとう！🎉";
-        rollButton.disabled = true;
-    }
+    result.textContent = outcomes[index];
+  }, 3100); // transition時間よりちょっと長め
 });
-
-function movePlayer(pos) {
-    const cell = cells[pos];
-    const rect = cell.getBoundingClientRect();
-    const boardRect = document.querySelector(".board").getBoundingClientRect();
-
-    // プレイヤーの位置をcellの中央に設定
-    player.style.top = ${rect.top - boardRect.top + rect.height / 4}px;
-    player.style.left = ${rect.left - boardRect.left + rect.width / 4}px;
-}
